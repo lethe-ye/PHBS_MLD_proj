@@ -28,12 +28,12 @@ The data can be acquired from Wind Database directly. All factors are based on d
 ## 1.4 Dataset sample
 Here is a sample of the dataset.
 
-See our proposal notebook.
+See our [proposal notebook](https://github.com/lethe-ye/PHBS_MLD_proj/blob/main/01%20proposalMaterials/assignment3_proposal.ipynb).
 
 ## 1.5 Work Flow
 
 We plan to implement a feature selection to choose certain features (factors) out of 52 daily factor data and some alpha factors from WorldQuant101 to establish classifiers using logistic regression, naive Bayes, KNN, perceptron, decision tree, SVM, XGBoost and a Sequential neural network model in Keras to predict the rise or fall of Wind All A Index the next day. We build our models and renew them, using them to predict the price up or down of the next trading days. Next we calculate the long-short net asset value (NAV) of WindA based on the position we hold according to the predictions. After that we do some tests and assessments on the strategy. The whole work flow is shown in the following figure.
-![images](https://raw.githubusercontent.com/lethe-ye/PHBS_MLD_proj/main/01%20proposalMaterials/workFlow.PNG)
+![images](01%20proposalMaterials/workFlow.PNG)
 
 ## 1.6 Rolling Prediction
 
@@ -42,7 +42,7 @@ As the financial data are time series data, we implement an **expanding window**
 1. We get at least 1800 days' data as the training dataset and use k-fold cross validation method to tune the hyperparameters for the best model, so the first signal we can get is the 1801 day.
 2. The signal is the predict results of the up or down of WindA Index in the next day. If the signal is predicted to be 1, then we buy WindA Index at the close of the day. If it is predicted as 0, then we short WindA or do nothing at the close of the day.
 3. We use the best model in Step 2 for 20 consecutive trading days and then add the 20 days' data into the training set in Step 1 to enter Step 1 again.
-![images](https://raw.githubusercontent.com/lethe-ye/PHBS_MLD_proj/main/01%20proposalMaterials/expand.png)
+![images](01%20proposalMaterials/expand.png)
 As we can see from the figure above, every 20 consecutive trading days the training dataset will expand 20 more days' data.
 
 # PART2 Data Preprocessing and Feature Selection
@@ -115,17 +115,17 @@ Then we compute the number of NaN in each factor. After we drop NaN including no
 
 We can see that correlation among these factors are relatively high, which is easy to understand. In order to solve this problem, we adopt some particular feature selection functions to deal with this issue as can be seen in the following part.
 
-Here we build five models to [select features](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/tree/master/03%20feature%20selection):
+Here we build five models to [select features](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/03%20featureSelection):
 
-* [naiveSelection.py](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/03%20feature%20selection/naiveSelection.py)
-* [pcaSelection.py](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/03%20feature%20selection/pcaSelection.py)
-* [SVCL1Selection.py](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/03%20feature%20selection/SVCL1Selection.py)
-* [treeSelection.py](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/03%20feature%20selection/treeSelection.py)
-* [varianceThresholdSelection.py](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/03%20feature%20selection/varianceThresholdSelection.py)
+* [naiveSelection.py](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/03%20featureSelection/naiveSelection.py)
+* [pcaSelection.py](https://github.com/lethe-ye/PHBS_MLD_proj/blob/main/03%20featureSelection/pcaSelection.py)
+* [SVCL1Selection.py](https://github.com/lethe-ye/PHBS_MLD_proj/blob/main/03%20featureSelection/SVCL1Selection.py)
+* [treeSelection.py](https://github.com/lethe-ye/PHBS_MLD_proj/blob/main/03%20featureSelection/treeSelection.py)
+* [varianceThresholdSelection.py](https://github.com/lethe-ye/PHBS_MLD_proj/blob/main/03%20featureSelection/varianceThresholdSelection.py)
 
-To avoid high correlation among features as much as possible, we can choose [LASSO in SVC model](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/03%20feature%20selection/SVCL1Selection.py). To find the most import features, we can choose PCA methods. Also, XGBoost includes feature selection itself. Moreover, to make it easy to call feature selection model, we encapsulate them as standard functions.
+To avoid high correlation among features as much as possible, we can choose [LASSO in SVC model](https://github.com/lethe-ye/PHBS_MLD_proj/blob/main/03%20featureSelection/SVCL1Selection.py). To find the most import features, we can choose PCA methods. Also, XGBoost includes feature selection itself. Moreover, to make it easy to call feature selection model, we encapsulate them as standard functions.
 
-Below is a sample feature selection function ([pcaSelection.py](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/03%20feature%20selection/pcaSelection.py)). As we can see, 12 PCA components can explain 82% of total variance, so we consider that 12 is the proper number of features to work with. 
+Below is a sample feature selection function ([pcaSelection.py](https://github.com/lethe-ye/PHBS_MLD_proj/blob/main/03%20featureSelection/pcaSelection.py)). As we can see, 12 PCA components can explain 82% of total variance, so we consider that 12 is the proper number of features to work with. 
 
 <p align="center">Table 2. Portion explained by different numbers of components
 
@@ -190,11 +190,11 @@ def pcaSelection(X_train, y_train, X_test, y_test, verbal = None, returnCoef = F
 
 # PART3 Building Classifiers
 
-As we have already converted the problem into a classification prediction problem, we need to build [classifiers](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/tree/master/04%20build%20classifier%20model) based on machine learning algorithms to implement on the selected features.
+As we have already converted the problem into a classification prediction problem, we need to build [classifiers](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/04%20buildClassifierModel) based on machine learning algorithms to implement on the selected features.
 
 ## 3.1 Machine Learning Algorithms
 
-We implement [logistic regression](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/04%20build%20classifier%20model/MyClassifier.py), [naive Bayes](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/04%20build%20classifier%20model/MyClassifier.py), [KNN](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/04%20build%20classifier%20model/MyKNNClassifier.py), [perceptron](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/04%20build%20classifier%20model/MyClassifier.py), [decision tree](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/04%20build%20classifier%20model/MyDecisionTreeClassifier.py), [SVM](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/04%20build%20classifier%20model/MySVMClassifier.py), [XGBoost](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/04%20build%20classifier%20model/MyXGBoostClassifier.py) and [a Sequential neural network model in Keras](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/blob/master/04%20build%20classifier%20model/MyDeepLearningClassifier.py) to predict the rise or fall of Wind All A Index the next day. Below are some sample codes of implementing these algorithms as classifiers.
+We implement [logistic regression](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/04%20buildClassifierModel/MyClassifier.py), [naive Bayes](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/04%20buildClassifierModel/MyClassifier.py), [KNN](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/04%20buildClassifierModel/MyKNNClassifier.py), [perceptron](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/04%20buildClassifierModel/MyClassifier.py), [decision tree](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/04%20buildClassifierModel/MyDecisionTreeClassifier.py), [SVM](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/04%20buildClassifierModel/MySVMClassifier.py), [XGBoost](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/04%20buildClassifierModel/MyXGBoostClassifier.py) and [a Sequential neural network model in Keras](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/04%20buildClassifierModel/MyDeepLearningClassifier.py) to predict the rise or fall of Wind All A Index the next day. Below are some sample codes of implementing these algorithms as classifiers.
 
 ```python
 class MyLogisticRegClassifier:
@@ -314,7 +314,7 @@ attribute after fitting a XGBoost Classifier. By executing the code, we can see 
 
 ## 3.3 Rolling Prediction
 
-As 1.6 has already explained, we implement an expanding window prediction procedure to predict future price trends of WindA. Based on the predictions, we make our decisions about when to buy/long and when to sell/short. Figure 7 shows the buy and sell points during the whole process ([naiveSelection+XGBoost](https://github.com/eiahb3838ya/PHBS_ML_for_quant_project/tree/master/05%20rolling%20prediction/outputResults/naiveSelection_MyXGBoostClassifier), the below figures all using this pair).
+As 1.6 has already explained, we implement an expanding window prediction procedure to predict future price trends of WindA. Based on the predictions, we make our decisions about when to buy/long and when to sell/short. Figure 7 shows the buy and sell points during the whole process ([naiveSelection+XGBoost](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/05%20rollingPrediction/outputResults/naiveSelection_MyXGBoostClassifier), the below figures all using this pair).
 
 ![images](09 readmeMaterial\buySell.png)
 
