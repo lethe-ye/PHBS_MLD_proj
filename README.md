@@ -308,7 +308,7 @@ attribute after fitting a XGBoost Classifier. By executing the code, we can see 
 
 (Thanks to professor.choi's reminder.)
 
-![images](09 readmeMaterial\TheFeatureImportance.png)
+![images](09%20readmeMaterial/TheFeatureImportance.png)
 
 <p align="center">Figure 6. The feature importance from XGBoost model</p>
 
@@ -316,7 +316,7 @@ attribute after fitting a XGBoost Classifier. By executing the code, we can see 
 
 As 1.6 has already explained, we implement an expanding window prediction procedure to predict future price trends of WindA. Based on the predictions, we make our decisions about when to buy/long and when to sell/short. Figure 7 shows the buy and sell points during the whole process ([naiveSelection+XGBoost](https://github.com/lethe-ye/PHBS_MLD_proj/tree/main/05%20rollingPrediction/outputResults/naiveSelection_MyXGBoostClassifier), the below figures all using this pair).
 
-![images](09 readmeMaterial\buySell.png)
+![images](09%20readmeMaterial/buySell.png)
 
 <p align="center">Figure 7. the buy and sell time points</p>
 
@@ -348,15 +348,15 @@ Implementing these two rules, we calculate the return of the strategies and Figu
 
 ## 4.2 Assessments
 
-![images](09 readmeMaterial\performance.png)
+![images](09%20readmeMaterial/performance.png)
 
 <p align="center">Figure 8. Strategies' performances and win time</p>
 
-![images](09 readmeMaterial\SharpRatio.png)
+![images](09%20readmeMaterial/SharpRatio.png)
 
 <p align="center">Figure 9. Sharp ratio</p>
 
-![images](09%20readmeMaterial\maxDrawback.png)
+![images](09%20readmeMaterial/maxDrawback.png)
 
 <p align="center">Figure 10. maxDrawback</p>
 
